@@ -261,10 +261,6 @@ class CanvasSideBar extends HookWidget {
                         : 'Remove Background',
                   ),
                 ),
-                TextButton(
-                  child: const Text('Fork on Github'),
-                  onPressed: () => _launchUrl(kGithubRepo),
-                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -281,7 +277,13 @@ class CanvasSideBar extends HookWidget {
                     child: const Text('Export PNG'),
                     onPressed: () async {
                       Uint8List? pngBytes = await getBytes();
-                      if (pngBytes != null) saveFile(pngBytes, 'png');
+                      if (pngBytes != null) {
+                        saveFile(pngBytes, 'png');
+                        const snackBar = SnackBar(
+                          content: Text('Image saved in your app file directory'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
                     },
                   ),
                 ),
@@ -291,7 +293,13 @@ class CanvasSideBar extends HookWidget {
                     child: const Text('Export JPEG'),
                     onPressed: () async {
                       Uint8List? pngBytes = await getBytes();
-                      if (pngBytes != null) saveFile(pngBytes, 'jpeg');
+                      if (pngBytes != null) {
+                        saveFile(pngBytes, 'jpeg');
+                        const snackBar = SnackBar(
+                          content: Text('Image saved in your app file directory'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
                     },
                   ),
                 ),
@@ -299,15 +307,6 @@ class CanvasSideBar extends HookWidget {
             ),
             // add about me button or follow buttons
             const Divider(),
-            Center(
-              child: GestureDetector(
-                onTap: () => _launchUrl('https://github.com/JideGuru'),
-                child: const Text(
-                  'Made with 💙 by JideGuru',
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-            ),
           ],
         ),
       ),
